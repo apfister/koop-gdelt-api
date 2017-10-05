@@ -22,3 +22,7 @@ Here are a few examples:
     `http://localhost:3000/gdelt/chicago%20cubs/less:-5/FeatureServer/0`  
 - Generate a Layer for articles with keyword `milwaukee brewers` with a fairly positive tone
     `http://localhost:3000/gdelt/milwaukee%20brewers/more:5/FeatureServer/0`  
+
+You are also able to leave the `tone` and `toneValue` params off completely and specify `all` to retrieve all data, regardless of tone.
+
+`http://localhost:3000/gdelt/milwaukee%20brewers/all/FeatureServer/0`
