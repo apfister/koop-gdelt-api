@@ -4,23 +4,32 @@ function Model (koop) {}
 
 Model.prototype.getData = function (req, callback) {
   const keyword = req.params.host;
-  const inTone = req.params.id;
 
-  let tone = '>';
-  let toneValue = '5';
+  let query = keyword;
 
-  if (inTone) {
-    const splits = inTone.split(':');
-    if (splits[0] && splits[0] === 'less') {
-      tone = '<';
-    }
+  if (req.params.id) {
+    const inTone = req.params.id;
 
-    if (splits[1] && !isNaN(parseFloat(splits[1]))) {
-      toneValue = splits[1];
+    let tone = '>';
+    let toneValue = '5';
+
+    if (inTone && inTone !== 'all') {
+      const splits = inTone.split(':');
+      if (splits[0] && splits[0] === 'less') {
+        tone = '<';
+      }
+
+      if (splits[1] && !isNaN(parseFloat(splits[1]))) {
+        toneValue = splits[1];
+      }
+
+      query = `${query} tone${tone}${toneValue}`;
     }
   }
 
-  const uri = `https://api.gdeltproject.org/api/v2/geo/geo?query=${keyword} tone${tone}${toneValue}&format=imagegeojson`;
+  const uri = `https://api.gdeltproject.org/api/v2/geo/geo?query=${query}&format=geojson`;
+
+  console.log(uri);
 
   const params = {
     uri,
